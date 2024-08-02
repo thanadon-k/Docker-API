@@ -1,0 +1,26 @@
+services:
+  web4dev:
+    image: flask-api:latest
+    environment:
+      DB_USER: admin
+      DB_PASSWORD: db4dev$
+      DB_HOST: db4dev
+      DB_NAME: devdatabase
+      DB_PORT: 3306
+    ports:
+      - "8081:80"
+    depends_on:
+      - db4dev
+
+  db4dev:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: devdatabase
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: db4dev$
+    volumes:
+      - db_data_dev:/var/lib/mysql
+
+volumes:
+  db_data_dev:

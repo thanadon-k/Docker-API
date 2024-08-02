@@ -1,0 +1,26 @@
+services:
+  web4test:
+    image: flask-api:latest
+    environment:
+      DB_USER: admin
+      DB_PASSWORD: db4test$
+      DB_HOST: db4test
+      DB_NAME: testdatabase
+      DB_PORT: 3306
+    ports:
+      - "8082:80"
+    depends_on:
+      - db4test
+
+  db4test:
+    image: mysql:latest
+    environment:
+      MYSQL_ROOT_PASSWORD: rootpassword
+      MYSQL_DATABASE: testdatabase
+      MYSQL_USER: admin
+      MYSQL_PASSWORD: db4test$
+    volumes:
+      - db_data_test:/var/lib/mysql
+
+volumes:
+  db_data_test:
